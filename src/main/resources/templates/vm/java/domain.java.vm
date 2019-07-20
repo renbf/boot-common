@@ -1,9 +1,9 @@
-package ${package}.domain;
+package ${package}.domain.pojo;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.ruoyi.framework.web.domain.BaseEntity;
+import java.io.Serializable;
 
 #foreach ($column in $columns)
 #if($column.attrType == 'Date')
@@ -24,7 +24,7 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
-public class ${className} extends BaseEntity
+public class ${className} implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +32,7 @@ public class ${className} extends BaseEntity
 	/** $column.columnComment */
 	private $column.attrType $column.attrname;
 #end
-
+//以上自动生成的尽量别动
 #foreach ($column in $columns)
 	public void set${column.attrName}($column.attrType $column.attrname) 
 	{

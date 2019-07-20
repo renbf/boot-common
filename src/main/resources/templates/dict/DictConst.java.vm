@@ -1,0 +1,19 @@
+package cn.stylefeng.guns.core.common.constant;
+
+/**
+ * 字典常量
+ */
+public interface DictConst
+{
+
+#foreach ($key in $resultList)
+#foreach ($bean in $key)
+#if($velocityCount == 1)
+	/** $bean.remarks */
+	public static final String $bean.dict_group_upper = "$bean.dict_group";
+#end
+	/** $bean.dict_text */
+	public static final String ${bean.dict_group_upper}_${velocityCount} = "$bean.dict_value";
+#end
+#end
+}

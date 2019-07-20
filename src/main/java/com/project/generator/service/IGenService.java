@@ -33,4 +33,11 @@ public interface IGenService {
      * @return 数据
      */
     public byte[] generatorCode(String[] tableNames);
+    /**
+     * 批量生成字典代码
+     *
+     * @param tableNames 表数组
+     * @return 数据
+     */
+    public byte[] generatorCodeByDict(String[] tableNames);
 }

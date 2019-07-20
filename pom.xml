@@ -107,11 +107,6 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>${poi.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
 			<version>3.14</version>
 		</dependency>
 		<dependency>
@@ -273,11 +268,6 @@
 			<version>1.1.0</version>
 		</dependency>
 		<!-- 车辆定位 -->
-		<dependency>
-			<groupId>openapi.sdk</groupId>
-			<artifactId>libthrift</artifactId>
-			<version>4.0</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>

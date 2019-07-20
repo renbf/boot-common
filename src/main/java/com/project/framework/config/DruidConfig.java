@@ -23,6 +23,7 @@ public class DruidConfig {
     @Bean
     @ConfigurationProperties("spring.datasource.druid.master")
     public DataSource masterDataSource() {
+        System.out.println("11111111111111111111111111111111111111111111111111111111");
         return DruidDataSourceBuilder.create().build();
     }
 

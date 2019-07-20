@@ -4,20 +4,20 @@ spring:
         async-executor-activate: false
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
+        driverClassName: com.mysql.jdbc.Driver
         druid:
             # 主库数据源
             master:
-                username: root
-                url: jdbc:mysql://192.168.0.243:3306/jxsc2?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
-                password: GFC@20170502
+                username: monitor
+                url: jdbc:mysql://192.168.1.201:3306/pettyloanmonitordb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+                password: 123456
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭
                 enabled: false
-                url: 
-                username: 
-                password: 
+                url:
+                username:
+                password:
             # 初始连接数
             initial-size: 10
             # 最大连接池数量

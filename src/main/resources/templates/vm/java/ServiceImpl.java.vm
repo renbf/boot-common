@@ -4,15 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.ruoyi.common.support.Convert;
 
-import ${package}.mapper.${className}Mapper;
-import ${package}.domain.${className};
-import ${package}.service.I${className}Service;
+import ${package}.dao.${className}Mapper;
+import ${package}.domain.pojo.${className};
+import ${package}.service.${className}Service;
 
 
 /**
@@ -22,11 +22,10 @@ import ${package}.service.I${className}Service;
  * @date ${datetime}
  */
 @Service
-public class ${className}ServiceImpl implements I${className}Service 
+public class ${className}ServiceImpl implements ${className}Service
 {
 	private static final Logger log = LoggerFactory.getLogger(${className}ServiceImpl.class);
 	@Autowired
-	@Qualifier("${classname}Mapper")
 	private ${className}Mapper ${classname}Mapper;
 
 	/**
@@ -48,9 +47,18 @@ public class ${className}ServiceImpl implements I${className}Service
      * @return ${tableComment}集合
      */
 	@Override
-	public List<${className}> select${className}List(${className} ${classname})
+	public Map<String,Object> select${className}List(${className} ${classname})
 	{
-	    return ${classname}Mapper.select${className}List(${classname});
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			List<${className}> list = ${classname}Mapper.select${className}List(${classname});
+			resultMap.put("code",0);
+			resultMap.put("data",list);
+		} catch (Exception e) {
+			log.error("",e);
+			throw new RuntimeException();
+		}
+		return resultMap;
 	}
 	
     /**
@@ -60,12 +68,18 @@ public class ${className}ServiceImpl implements I${className}Service
      * @return 结果
      */
 	@Override
-	public int insert${className}(${className} ${classname})
+	public Map<String,Object> insert${className}(${className} ${classname})
 	{
-		${classname}.setId(UUIDUtil.getUUID());
-		${classname}.setCreateDate(new Date());
-		${classname}.setAddUserId(ShiroUtils.getUserId().toString());
-	    return ${classname}Mapper.insert${className}(${classname});
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			${classname}.setCreateDate(new Date());
+			${classname}Mapper.insert${className}(${classname});
+			resultMap.put("code",0);
+		} catch (Exception e) {
+			log.error("",e);
+			throw new RuntimeException();
+		}
+		return resultMap;
 	}
 	
 	/**
@@ -75,9 +89,17 @@ public class ${className}ServiceImpl implements I${className}Service
      * @return 结果
      */
 	@Override
-	public int update${className}(${className} ${classname})
+	public Map<String,Object> update${className}(${className} ${classname})
 	{
-	    return ${classname}Mapper.update${className}(${classname});
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+				${classname}Mapper.update${className}(${classname});
+			resultMap.put("code",0);
+		} catch (Exception e) {
+			log.error("",e);
+			throw new RuntimeException();
+		}
+		return resultMap;
 	}
 
 	/**
@@ -87,9 +109,17 @@ public class ${className}ServiceImpl implements I${className}Service
      * @return 结果
      */
 	@Override
-	public int delete${className}ByIds(String ids)
+	public Map<String,Object> delete${className}ByIds(String ids)
 	{
-		return ${classname}Mapper.delete${className}ByIds(Convert.toStrArray(ids));
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+				${classname}Mapper.delete${className}ByIds(ids.split(","));
+			resultMap.put("code",0);
+		} catch (Exception e) {
+			log.error("",e);
+			throw new RuntimeException();
+		}
+		return resultMap;
 	}
 	//以上自动生成的尽量别动
 }

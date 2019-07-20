@@ -22,7 +22,7 @@ public class GenUtils {
     /**
      * 项目空间路径
      */
-    private static final String PROJECT_PATH = "main/java/com/project";
+    private static final String PROJECT_PATH = "main/java/com/xhkj";
 
     /**
      * mybatis空间路径
@@ -77,8 +77,8 @@ public class GenUtils {
         velocityContext.put("classname", table.getClassname());
         velocityContext.put("moduleName", GenUtils.getModuleName(packageName));
         velocityContext.put("columns", table.getColumns());
-        velocityContext.put("package", packageName + "." + table.getClassname());
-//        velocityContext.put("package", packageName);
+//        velocityContext.put("package", packageName + "." + table.getClassname());
+        velocityContext.put("package", packageName);
         velocityContext.put("author", Global.getAuthor());
         velocityContext.put("datetime", DateUtils.getDate());
         return velocityContext;
@@ -97,10 +97,11 @@ public class GenUtils {
         templates.add("templates/vm/java/ServiceImpl.java.vm");
         templates.add("templates/vm/java/Controller.java.vm");
         templates.add("templates/vm/xml/Mapper.xml.vm");
-        templates.add("templates/vm/html/list.html.vm");
-        templates.add("templates/vm/html/add.html.vm");
-        templates.add("templates/vm/html/edit.html.vm");
-        templates.add("templates/vm/sql/sql.vm");
+//        templates.add("templates/vm/html/list.html.vm");
+//        templates.add("templates/vm/html/add.html.vm");
+//        templates.add("templates/vm/html/edit.html.vm");
+//        templates.add("templates/vm/sql/sql.vm");
+//        templates.add("templates/vm/html/json.html.vm");
         return templates;
     }
 
@@ -129,20 +130,20 @@ public class GenUtils {
         String mybatisPath = MYBATIS_PATH + "/" + moduleName + "/" + className;
         String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
         //文件路径
-        if (StringUtils.isNotEmpty(classname)) {
-            javaPath += classname.replace(".", "/") + "/";
-        }
+//        if (StringUtils.isNotEmpty(classname)) {
+//            javaPath += classname.replace(".", "/") + "/";
+//        }
 
         if (template.contains("domain.java.vm")) {
-            return javaPath + "domain" + "/" + className + ".java";
+            return javaPath + "domain/pojo" + "/" + className + ".java";
         }
 
         if (template.contains("Mapper.java.vm")) {
-            return javaPath + "mapper" + "/" + className + "Mapper.java";
+            return javaPath + "dao" + "/" + className + "Mapper.java";
         }
 
         if (template.contains("Service.java.vm")) {
-            return javaPath + "service" + "/" + "I" + className + "Service.java";
+            return javaPath + "service" + "/" + className + "Service.java";
         }
 
         if (template.contains("ServiceImpl.java.vm")) {
@@ -150,7 +151,7 @@ public class GenUtils {
         }
 
         if (template.contains("Controller.java.vm")) {
-            return javaPath + "controller" + "/" + className + "Controller.java";
+            return javaPath + "web/controller/monitorbeforeload" + "/" + className + "Controller.java";
         }
 
         if (template.contains("Mapper.xml.vm")) {
@@ -166,9 +167,13 @@ public class GenUtils {
         if (template.contains("edit.html.vm")) {
             return htmlPath + "/" + "edit.html";
         }
+        if (template.contains("json.html.vm")) {
+            return htmlPath + "/" + "json.html";
+        }
         if (template.contains("sql.vm")) {
             return classname + "Menu.sql";
         }
+
         return null;
     }
 

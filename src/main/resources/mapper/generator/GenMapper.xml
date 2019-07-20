@@ -49,4 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where table_name = #{tableName} and table_schema = (select database()) order by ordinal_position
 	</select>
 
+	<select id="selectDictList" resultType="java.util.Map">
+		select dict_id, dict_group, dict_value, dict_text, parent_dict_group, parent_dict_value,
+    sort_order, create_date, modify_date, remarks
+    from sys_dict
+    order by dict_id
+	</select>
+
 </mapper> 

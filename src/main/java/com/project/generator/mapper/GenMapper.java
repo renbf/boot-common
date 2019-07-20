@@ -1,6 +1,8 @@
 package com.project.generator.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import com.project.generator.domain.ColumnInfo;
 import com.project.generator.domain.TableInfo;
 
@@ -34,4 +36,6 @@ public interface GenMapper
      * @return 列信息
      */
     public List<ColumnInfo> selectTableColumnsByName(String tableName);
+
+    public List<Map<String,Object>> selectDictList();
 }

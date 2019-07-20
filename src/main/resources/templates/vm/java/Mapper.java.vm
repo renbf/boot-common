@@ -1,16 +1,14 @@
-package ${package}.mapper;
+package ${package}.dao;
 
-import ${package}.domain.${className};
+import ${package}.domain.pojo.${className};
 import java.util.List;	
-import org.springframework.stereotype.Repository;
 /**
  * ${tableComment} 数据层
  * 
  * @author ${author}
  * @date ${datetime}
  */
- @Repository("${classname}Mapper")
-public interface ${className}Mapper 
+public interface ${className}Mapper
 {
 	/**
      * 查询${tableComment}信息
@@ -59,5 +57,13 @@ public interface ${className}Mapper
      * @return 结果
      */
 	public int delete${className}ByIds(String[] ${primaryKey.attrname}s);
+
+	/**
+	 * 批量新增${tableComment}
+	 *
+	 * @param list ${tableComment}信息
+	 * @return 结果
+	 */
+	public int insert${className}Batch(List<${className}> list);
 	//以上自动生成的尽量别动
 }

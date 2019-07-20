@@ -1,6 +1,10 @@
-package ${package}.controller;
+package ${package}.web.controller.monitorbeforeload;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,14 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ruoyi.framework.aspectj.lang.annotation.Log;
-import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
-import com.ruoyi.framework.web.controller.BaseController;
-import com.ruoyi.framework.web.domain.AjaxResult;
-import com.ruoyi.framework.web.page.TableDataInfo;
 
-import ${package}.domain.${className};
-import ${package}.service.I${className}Service;
+import ${package}.domain.pojo.${className};
+import ${package}.service.${className}Service;
 
 
 /**
@@ -28,88 +27,89 @@ import ${package}.service.I${className}Service;
  * @date ${datetime}
  */
 @Controller
-@RequestMapping("/${moduleName}/${classname}")
-public class ${className}Controller extends BaseController
+@RequestMapping("/api/${classname}")
+public class ${className}Controller
 {
-    private String prefix = "${moduleName}/${classname}";
-	
+    private static final Logger log = LoggerFactory.getLogger(${className}Controller.class);
+
 	@Autowired
-	private I${className}Service ${classname}Service;
-	
-	@RequiresPermissions("${moduleName}:${classname}:view")
-	@GetMapping()
-	public String ${classname}()
-	{
-	    return prefix + "/${classname}";
-	}
+	private ${className}Service ${classname}Service;
 	
 	/**
 	 * 查询${tableComment}列表
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:list")
+	@RequiresPermissions("api:${classname}:list")
 	@PostMapping("/list")
 	@ResponseBody
-	public TableDataInfo list(${className} ${classname})
+	public Map<String,Object> list(${className} ${classname})
 	{
-		startPage();
-        List<${className}> list = ${classname}Service.select${className}List(${classname});
-		return getDataTable(list);
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        try {
+			resultMap = ${classname}Service.select${className}List(${classname});
+        } catch (Exception e) {
+            log.error("查询${tableComment}列表异常",e);
+            resultMap.put("code",-1);
+            resultMap.put("msg","查询${tableComment}列表异常");
+        }
+        return resultMap;
 	}
 	
-	/**
-	 * 新增${tableComment}
-	 */
-	@GetMapping("/add")
-	public String add()
-	{
-	    return prefix + "/add";
-	}
-	
+
 	/**
 	 * 新增保存${tableComment}
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:add")
-	@Log(title = "${tableComment}", businessType = BusinessType.INSERT)
+	@RequiresPermissions("api:${classname}:add")
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(${className} ${classname})
+	public Map<String,Object> addSave(${className} ${classname})
 	{		
-		return toAjax(${classname}Service.insert${className}(${classname}));
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        try {
+			resultMap = ${classname}Service.insert${className}(${classname});
+        } catch (Exception e) {
+            log.error("新增保存${tableComment}异常",e);
+            resultMap.put("code",-1);
+            resultMap.put("msg","新增保存${tableComment}异常");
+        }
+        return resultMap;
 	}
 
 	/**
-	 * 修改${tableComment}
-	 */
-	@GetMapping("/edit/{${primaryKey.attrname}}")
-	public String edit(@PathVariable("${primaryKey.attrname}") ${primaryKey.attrType} ${primaryKey.attrname}, ModelMap mmap)
-	{
-		${className} ${classname} = ${classname}Service.select${className}ById(${primaryKey.attrname});
-		mmap.put("${classname}", ${classname});
-	    return prefix + "/edit";
-	}
-	
-	/**
 	 * 修改保存${tableComment}
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:edit")
-	@Log(title = "${tableComment}", businessType = BusinessType.UPDATE)
+	@RequiresPermissions("api:${classname}:edit")
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(${className} ${classname})
+	public Map<String,Object> editSave(${className} ${classname})
 	{		
-		return toAjax(${classname}Service.update${className}(${classname}));
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        try {
+			resultMap = ${classname}Service.update${className}(${classname});
+        } catch (Exception e) {
+            log.error("修改保存${tableComment}异常",e);
+            resultMap.put("code",-1);
+            resultMap.put("msg","修改保存${tableComment}异常");
+        }
+        return resultMap;
 	}
 	
 	/**
 	 * 删除${tableComment}
 	 */
-	@RequiresPermissions("${moduleName}:${classname}:remove")
-	@Log(title = "${tableComment}", businessType = BusinessType.DELETE)
+	@RequiresPermissions("api:${classname}:remove")
 	@PostMapping( "/remove")
 	@ResponseBody
-	public AjaxResult remove(String ids)
-	{		
-		return toAjax(${classname}Service.delete${className}ByIds(ids));
+	public Map<String,Object> remove(String ids)
+	{
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        try {
+			resultMap = ${classname}Service.delete${className}ByIds(ids);
+        } catch (Exception e) {
+            log.error("删除${tableComment}异常",e);
+            resultMap.put("code",-1);
+            resultMap.put("msg","删除${tableComment}异常");
+        }
+        return resultMap;
 	}
 	
 }

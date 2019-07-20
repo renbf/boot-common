@@ -70,4 +70,37 @@ public class GenController
 
         IOUtils.write(data, response.getOutputStream());
     }
+
+    @Log(title = "数据字典代码生成", businessType = BusinessType.GENCODE)
+    @RequestMapping("/dictGenCode")
+    @ResponseBody
+    public void dictGenCode(HttpServletResponse response, String tables) throws IOException
+    {
+        String[] tableNames = Convert.toStrArray(tables);
+        byte[] data = genService.generatorCodeByDict(tableNames);
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment; filename=\"dly.zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+
+        IOUtils.write(data, response.getOutputStream());
+    }
+
+    /**
+     * 批量生成代码
+     */
+    @Log(title = "代码生成", businessType = BusinessType.GENCODE)
+    @RequestMapping("/batchGenJosnCode")
+    @ResponseBody
+    public void batchGenJosnCode(HttpServletResponse response, String tables) throws IOException
+    {
+        String[] tableNames = Convert.toStrArray(tables);
+        byte[] data = genService.generatorCode(tableNames);
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment; filename=\"dly.zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+
+        IOUtils.write(data, response.getOutputStream());
+    }
 }
