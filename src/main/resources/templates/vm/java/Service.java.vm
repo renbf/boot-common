@@ -1,6 +1,6 @@
-package ${package}.service;
+package ${packageService};
 
-import ${package}.domain.pojo.${className};
+import ${packageDomain}.${className};
 import java.util.Map;
 
 /**

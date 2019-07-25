@@ -2,19 +2,20 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${package}.dao.${className}Mapper">
+<mapper namespace="${packageDao}.${className}Mapper">
     
-    <resultMap type="${package}.domain.pojo.${className}" id="${className}Result">
+    <resultMap type="${packageDomain}.${className}" id="${className}Result">
 #foreach ($column in $columns)
         <result property="${column.attrname}"    column="${column.columnName}"    />
 #end
     </resultMap>
 	
 	<sql id="select${className}basicColums">
-        select#foreach($column in $columns) ${aliasName}.$column.columnName#if($velocityCount != $columns.size()),#end#end 
+        select#foreach($column in $columns) ${aliasName}.$column.columnName#if($velocityCount != $columns.size()),#end#end
+
     </sql>
 	
-    <select id="select${className}List" parameterType="${package}.domain.pojo.${className}" resultMap="${className}Result">
+    <select id="select${className}List" parameterType="${packageDomain}.${className}" resultMap="${className}Result">
         <include refid="select${className}basicColums"/>
         from ${tableName} ${aliasName}
         <where>  
@@ -30,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where ${aliasName}.${primaryKey.columnName} = #{${primaryKey.attrname}}
     </select>
         
-    <insert id="insert${className}" parameterType="${package}.domain.pojo.${className}"#if($primaryKey.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primaryKey.attrname"#end>
+    <insert id="insert${className}" parameterType="${packageDomain}.${className}"#if($primaryKey.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primaryKey.attrname"#end>
         insert into ${tableName}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
@@ -48,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 	 
-    <update id="update${className}" parameterType="${package}.domain.pojo.${className}">
+    <update id="update${className}" parameterType="${packageDomain}.${className}">
         update ${tableName}
         <trim prefix="SET" suffixOverrides=",">
 #foreach($column in $columns)

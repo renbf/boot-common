@@ -1,6 +1,6 @@
-package ${package}.dao;
+package ${packageDao};
 
-import ${package}.domain.pojo.${className};
+import ${packageDomain}.${className};
 import java.util.List;	
 /**
  * ${tableComment} 数据层

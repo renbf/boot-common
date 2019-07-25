@@ -22,7 +22,7 @@ public class GenUtils {
     /**
      * 项目空间路径
      */
-    private static final String PROJECT_PATH = "main/java/com/xhkj";
+    private static final String PROJECT_PATH = "main/java/";
 
     /**
      * mybatis空间路径
@@ -77,10 +77,26 @@ public class GenUtils {
         velocityContext.put("classname", table.getClassname());
         velocityContext.put("moduleName", GenUtils.getModuleName(packageName));
         velocityContext.put("columns", table.getColumns());
-//        velocityContext.put("package", packageName + "." + table.getClassname());
-        velocityContext.put("package", packageName);
+
+
         velocityContext.put("author", Global.getAuthor());
         velocityContext.put("datetime", DateUtils.getDate());
+        //elocityContext.put("package", packageName + "." + table.getClassname());
+        velocityContext.put("package", packageName);
+
+        String packageDomain = Global.getConfig("gen.packageDomain");
+        String packageDao = Global.getConfig("gen.packageDao");
+        String packageService = Global.getConfig("gen.packageService");
+        String packageServiceImpl = Global.getConfig("gen.packageServiceImpl");
+        String packageController = Global.getConfig("gen.packageController");
+
+        velocityContext.put("packageDomain", packageDomain);
+        velocityContext.put("packageDao", packageDao);
+        velocityContext.put("packageService", packageService);
+        velocityContext.put("packageServiceImpl", packageServiceImpl);
+        velocityContext.put("packageController", packageController);
+
+
         return velocityContext;
     }
 
@@ -126,8 +142,21 @@ public class GenUtils {
         String classname = table.getClassname();
         // 大写类名
         String className = table.getClassName();
-        String javaPath = PROJECT_PATH + "/" + moduleName + "/";
-        String mybatisPath = MYBATIS_PATH + "/" + moduleName + "/" + className;
+        //包名
+        String packageDomain = Global.getConfig("gen.packageDomain");
+        String packageDao = Global.getConfig("gen.packageDao");
+        String packageService = Global.getConfig("gen.packageService");
+        String packageServiceImpl = Global.getConfig("gen.packageServiceImpl");
+        String packageController = Global.getConfig("gen.packageController");
+        //文件路径
+        String pathDomain = replacePointToSeparator(packageDomain);
+        String pathDao = replacePointToSeparator(packageDao);
+        String pathService = replacePointToSeparator(packageService);
+        String pathServiceImpl = replacePointToSeparator(packageServiceImpl);
+        String pathController = replacePointToSeparator(packageController);
+
+        String javaPath = PROJECT_PATH;
+        String mybatisPath = MYBATIS_PATH + "/" + moduleName + "/";
         String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
         //文件路径
 //        if (StringUtils.isNotEmpty(classname)) {
@@ -135,27 +164,27 @@ public class GenUtils {
 //        }
 
         if (template.contains("domain.java.vm")) {
-            return javaPath + "domain/pojo" + "/" + className + ".java";
+            return javaPath + pathDomain + "/" + className + ".java";
         }
 
         if (template.contains("Mapper.java.vm")) {
-            return javaPath + "dao" + "/" + className + "Mapper.java";
+            return javaPath + pathDao + "/" + className + "Mapper.java";
         }
 
         if (template.contains("Service.java.vm")) {
-            return javaPath + "service" + "/" + className + "Service.java";
+            return javaPath + pathService + "/" + className + "Service.java";
         }
 
         if (template.contains("ServiceImpl.java.vm")) {
-            return javaPath + "service" + "/impl/" + className + "ServiceImpl.java";
+            return javaPath + pathServiceImpl + "/" + className + "ServiceImpl.java";
         }
 
         if (template.contains("Controller.java.vm")) {
-            return javaPath + "web/controller/monitorbeforeload" + "/" + className + "Controller.java";
+            return javaPath + pathController + "/" + className + "Controller.java";
         }
 
         if (template.contains("Mapper.xml.vm")) {
-            return mybatisPath + "Mapper.xml";
+            return mybatisPath + className + "Mapper.xml";
         }
 
         if (template.contains("list.html.vm")) {
@@ -193,6 +222,15 @@ public class GenUtils {
     public static String replaceKeyword(String keyword) {
         String keyName = keyword.replaceAll("(?:表|信息)", "");
         return keyName;
+    }
+
+    /**
+     * 包名转路径
+     * @param packageName
+     * @return
+     */
+    public static String replacePointToSeparator(String packageName) {
+        return packageName.replaceAll("\\.", "/");
     }
 
     static {

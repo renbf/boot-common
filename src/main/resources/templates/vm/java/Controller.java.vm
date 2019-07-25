@@ -1,4 +1,4 @@
-package ${package}.web.controller.monitorbeforeload;
+package ${packageController};
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import ${package}.domain.pojo.${className};
-import ${package}.service.${className}Service;
+import ${packageDomain}.${className};
+import ${packageService}.${className}Service;
 
 
 /**
