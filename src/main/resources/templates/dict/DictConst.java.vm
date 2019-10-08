@@ -2,6 +2,7 @@ package cn.stylefeng.guns.core.common.constant;
 
 /**
  * 字典常量
+ * 完全按照数据库sys_dict表顺序创建，不能有其他字典
  */
 public interface DictConst
 {
