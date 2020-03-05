@@ -9,7 +9,7 @@ spring:
             # 主库数据源
             master:
                 username: monitor
-                url: jdbc:mysql://192.168.1.201:3306/pettyloanmonitordb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+                url: jdbc:mysql://192.168.1.213:3306/pettyloanmonitordb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
                 password: 123456
             # 从库数据源
             slave:
