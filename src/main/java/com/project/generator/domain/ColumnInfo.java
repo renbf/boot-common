@@ -43,6 +43,16 @@ public class ColumnInfo implements Serializable{
      */
     private String attrname;
 
+    private String extra;
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
     public String getColumnName() {
         return columnName;
     }

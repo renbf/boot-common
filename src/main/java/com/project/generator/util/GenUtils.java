@@ -126,10 +126,10 @@ public class GenUtils {
      */
     public static String tableToJava(String tableName) {
         if (Constants.AUTO_REOMVE_PRE.equals(Global.getAutoRemovePre())) {
+            if (StringUtils.isNotEmpty(Global.getTablePrefix())) {
+                tableName = tableName.replace(Global.getTablePrefix(), "");
+            }
             tableName = tableName.substring(tableName.indexOf("_") + 1);
-        }
-        if (StringUtils.isNotEmpty(Global.getTablePrefix())) {
-            tableName = tableName.replace(Global.getTablePrefix(), "");
         }
         return StringUtils.convertToCamelCase(tableName);
     }
