@@ -9,7 +9,7 @@ import java.util.Map;
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${className}Service
+public interface I${className}Service
 {
 	/**
      * 查询${tableComment}信息

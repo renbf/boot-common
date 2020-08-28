@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import ${packageDao}.${className}Mapper;
 import ${packageDomain}.${className};
-import ${packageService}.${className}Service;
+import ${packageService}.I${className}Service;
 
 
 /**
@@ -22,7 +22,7 @@ import ${packageService}.${className}Service;
  * @date ${datetime}
  */
 @Service
-public class ${className}ServiceImpl implements ${className}Service
+public class ${className}ServiceImpl implements I${className}Service
 {
 	private static final Logger log = LoggerFactory.getLogger(${className}ServiceImpl.class);
 	@Autowired

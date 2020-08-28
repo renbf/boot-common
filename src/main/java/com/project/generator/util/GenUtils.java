@@ -172,7 +172,7 @@ public class GenUtils {
         }
 
         if (template.contains("Service.java.vm")) {
-            return javaPath + pathService + "/" + className + "Service.java";
+            return javaPath + pathService + "/I" + className + "Service.java";
         }
 
         if (template.contains("ServiceImpl.java.vm")) {

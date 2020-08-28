@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import ${packageDomain}.${className};
-import ${packageService}.${className}Service;
+import ${packageService}.I${className}Service;
 
 
 /**
@@ -33,7 +33,7 @@ public class ${className}Controller
     private static final Logger log = LoggerFactory.getLogger(${className}Controller.class);
 
 	@Autowired
-	private ${className}Service ${classname}Service;
+	private I${className}Service ${classname}Service;
 	
 	/**
 	 * 查询${tableComment}列表
