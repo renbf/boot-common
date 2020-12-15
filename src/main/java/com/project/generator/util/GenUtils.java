@@ -77,7 +77,7 @@ public class GenUtils {
         velocityContext.put("className", table.getClassName());
         velocityContext.put("classname", table.getClassname());
         velocityContext.put("moduleName", GenUtils.getModuleName(packageName));
-        velocityContext.put("columns", table.getColumns());
+        velocityContext.put("columns", quchuJileiColumns(table.getColumns()));
         velocityContext.put("allColumns", table.getColumns());
 
 
