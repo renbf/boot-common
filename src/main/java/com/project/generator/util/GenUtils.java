@@ -38,7 +38,8 @@ public class GenUtils {
      * 类型转换
      */
     public static Map<String, String> javaTypeMap = new HashMap<String, String>();
-
+    /** Entity基类字段 */
+    public static final String[] BASE_ENTITY = { "createBy", "createTime", "updateBy", "updateTime", "remark" };
     /**
      * 设置列信息
      */
@@ -77,6 +78,7 @@ public class GenUtils {
         velocityContext.put("classname", table.getClassname());
         velocityContext.put("moduleName", GenUtils.getModuleName(packageName));
         velocityContext.put("columns", table.getColumns());
+        velocityContext.put("allColumns", table.getColumns());
 
 
         velocityContext.put("author", Global.getAuthor());
@@ -100,6 +102,16 @@ public class GenUtils {
         return velocityContext;
     }
 
+    public static List<ColumnInfo> quchuJileiColumns(List<ColumnInfo> allColumns){
+        List<ColumnInfo> columns = new ArrayList<>();
+        for (ColumnInfo column : allColumns) {
+            String attrname = column.getAttrname();
+            if (!StringUtils.equalsAnyIgnoreCase(attrname,BASE_ENTITY)) {
+                columns.add(column);
+            }
+        }
+        return columns;
+    }
     /**
      * 获取模板信息
      *

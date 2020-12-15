@@ -9,7 +9,7 @@ spring:
             # 主库数据源
             master:
                 username: root
-                url: jdbc:mysql://192.168.1.59:3306/oa_system?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                url: jdbc:mysql://192.168.1.59:3306/water_system?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 password: root
             # 从库数据源
             slave:
