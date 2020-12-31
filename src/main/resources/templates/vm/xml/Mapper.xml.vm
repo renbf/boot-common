@@ -3,56 +3,56 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${packageDao}.${className}Mapper">
-    
+
     <resultMap type="${packageDomain}.${className}" id="${className}Result">
-#foreach ($column in $columns)
+#foreach ($column in $allColumns)
         <result property="${column.attrname}"    column="${column.columnName}"    />
 #end
     </resultMap>
-	
+
 	<sql id="select${className}basicColums">
-        select#foreach($column in $columns) ${aliasName}.$column.columnName#if($velocityCount != $columns.size()),#end#end
+        select#foreach($column in $allColumns) ${aliasName}.$column.columnName#if($velocityCount != $allColumns.size()),#end#end
 
     </sql>
-	
+
     <select id="select${className}List" parameterType="${packageDomain}.${className}" resultMap="${className}Result">
         <include refid="select${className}basicColums"/>
         from ${tableName} ${aliasName}
-        <where>  
-#foreach($column in $columns)
+        <where>
+#foreach($column in $allColumns)
             <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname.trim() != '' #end"> and ${aliasName}.$column.columnName = #{$column.attrname}</if>
  #end
         </where>
     </select>
-    
+
     <select id="select${className}ById" parameterType="${primaryKey.attrType}" resultMap="${className}Result">
         <include refid="select${className}basicColums"/>
         from ${tableName} ${aliasName}
         where ${aliasName}.${primaryKey.columnName} = #{${primaryKey.attrname}}
     </select>
-        
+
     <insert id="insert${className}" parameterType="${packageDomain}.${className}"#if($primaryKey.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primaryKey.attrname"#end>
         insert into ${tableName}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-#foreach($column in $columns)
+#foreach($column in $allColumns)
 #if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment')
 			<if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">$column.columnName,</if>
 #end
 #end
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-#foreach($column in $columns)
+#foreach($column in $allColumns)
 #if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment')
 			<if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">#{$column.attrname},</if>
-#end			
+#end
 #end
          </trim>
     </insert>
-	 
+
     <update id="update${className}" parameterType="${packageDomain}.${className}">
         update ${tableName}
         <trim prefix="SET" suffixOverrides=",">
-#foreach($column in $columns)
+#foreach($column in $allColumns)
 #if($column.columnName != $primaryKey.columnName)
             <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">$column.columnName = #{$column.attrname},</if>
 #end
@@ -64,20 +64,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete${className}ById" parameterType="${primaryKey.attrType}">
         delete from ${tableName} where ${primaryKey.columnName} = #{${primaryKey.attrname}}
     </delete>
-	
+
     <delete id="delete${className}ByIds" parameterType="String">
-        delete from ${tableName} where ${primaryKey.columnName} in 
+        delete from ${tableName} where ${primaryKey.columnName} in
         <foreach item="${primaryKey.attrname}" collection="array" open="(" separator="," close=")">
             #{${primaryKey.attrname}}
         </foreach>
     </delete>
 
     <insert id="insert${className}Batch" parameterType="java.util.List" #if($primaryKey.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primaryKey.attrname"#end>
-        insert into ${tableName} (#foreach($column in $columns)#if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment') $column.columnName#if($velocityCount != $columns.size()),#end#end#end) values
+        insert into ${tableName} (#foreach($column in $allColumns)#if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment') $column.columnName#if($velocityCount != $allColumns.size()),#end#end#end) values
         <foreach item="item" collection="list" separator=",">
-            (#foreach($column in $columns)#if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment') #{item.$column.attrname}#if($velocityCount != $columns.size()),#end#end#end)
+            (#foreach($column in $allColumns)#if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment') #{item.$column.attrname}#if($velocityCount != $allColumns.size()),#end#end#end)
         </foreach>
     </insert>
     <!-- 以上是自动生成的代码尽量别动 -->
-    
+
 </mapper>
