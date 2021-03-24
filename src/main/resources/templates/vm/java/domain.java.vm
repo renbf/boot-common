@@ -4,6 +4,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.xhkj.framework.web.domain.BaseEntity;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 #foreach ($column in $columns)
 #if($column.attrType == 'Date')
@@ -24,12 +26,14 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
+@ApiModel(value = "${tableComment}")
 public class ${className} extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
 	
 #foreach ($column in $columns)
 	/** $column.columnComment */
+	@ApiModelProperty(value = "$column.columnComment")
 	private $column.attrType $column.attrname;
 #end
 //以上自动生成的尽量别动
